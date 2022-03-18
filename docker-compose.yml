@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+    db:
+        image: postgres:12.4
+        environment:
+            POSTGRES_USER: nestjs
+            POSTGRES_PASSWORD: nestjs
+            POSTGRES_DB: nestjs
+        ports:
+            - 5432:5432
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+
+    pgadmin:
+        image: dpage/pgadmin4:latest
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: admin
+        ports:
+            - 5433:80
+        volumes:
+            - ./pgadmin4-servers.json:/pgadmin4/servers.json:ro
+
+    redis:
+        image: redis
+        ports:
+            - 6380:6379
+volumes:
+    pgdata:
